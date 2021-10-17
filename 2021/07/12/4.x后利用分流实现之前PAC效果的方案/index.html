@@ -20,15 +20,15 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.6.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
-<meta name="description" content="替换自带geoip.dat和geosite.dat文件  替换方式以及文件可以参考Repo@Loyalsoldier&#x2F;v2ray-rules-dat。  在V2RayN设置中启用高级路由高能  具体：设置-路由设置-勾选启用高级路由功能。  导入gfw规则集首先复制以下一种配置内容：">
+<meta name="description" content="替换自带geoip.dat和geosite.dat文件  替换方式以及文件可以参考Repo@Loyalsoldier&#x2F;v2ray-rules-dat。  在V2RayN设置中启用高级路由高能  具体：设置-路由设置-勾选启用高级路由功能。  导入gfw规则集">
 <meta property="og:type" content="article">
 <meta property="og:title" content="4.x后利用分流实现之前PAC效果的方案">
 <meta property="og:url" content="http://example.com/2021/07/12/4.x%E5%90%8E%E5%88%A9%E7%94%A8%E5%88%86%E6%B5%81%E5%AE%9E%E7%8E%B0%E4%B9%8B%E5%89%8DPAC%E6%95%88%E6%9E%9C%E7%9A%84%E6%96%B9%E6%A1%88/index.html">
 <meta property="og:site_name" content="一顷地">
-<meta property="og:description" content="替换自带geoip.dat和geosite.dat文件  替换方式以及文件可以参考Repo@Loyalsoldier&#x2F;v2ray-rules-dat。  在V2RayN设置中启用高级路由高能  具体：设置-路由设置-勾选启用高级路由功能。  导入gfw规则集首先复制以下一种配置内容：">
+<meta property="og:description" content="替换自带geoip.dat和geosite.dat文件  替换方式以及文件可以参考Repo@Loyalsoldier&#x2F;v2ray-rules-dat。  在V2RayN设置中启用高级路由高能  具体：设置-路由设置-勾选启用高级路由功能。  导入gfw规则集">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-12T03:37:30.884Z">
-<meta property="article:modified_time" content="2021-07-12T08:29:05.065Z">
+<meta property="article:modified_time" content="2021-10-17T09:04:41.737Z">
 <meta property="article:author" content="yiqingdi">
 <meta property="article:tag" content="V2rayN">
 <meta name="twitter:card" content="summary">
@@ -212,10 +212,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-07-12 11:37:30 / 修改时间：16:29:05" itemprop="dateCreated datePublished" datetime="2021-07-12T11:37:30+08:00">2021-07-12</time>
+      <time title="创建时间：2021-07-12 11:37:30" itemprop="dateCreated datePublished" datetime="2021-07-12T11:37:30+08:00">2021-07-12</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-10-17 17:04:41" itemprop="dateModified" datetime="2021-10-17T17:04:41+08:00">2021-10-17</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -245,24 +251,13 @@
 </ol>
 <p>具体：设置-路由设置-勾选启用高级路由功能。</p>
 <ol start="3">
-<li>导入gfw规则集<br>首先复制以下一种配置内容：<span id="more"></span><br>带广告屏蔽的：<br>[<br>{<br> “outboundTag”: “block”,<br> “domain”: [<br>   “geosite:category-ads-all”,<br>   “geosite:win-spy”<br> ]<br>},<br>{<br>  “outboundTag”: “proxy”,<br>  “ip”: [<pre><code>&quot;geoip:telegram&quot;
-</code></pre>
-  ],<br>  “domain”: [<pre><code>&quot;geosite:gfw&quot;
-</code></pre>
- ]<br>},<br>{<br> “port”: “0-65535”,<br> “outboundTag”: “direct”<br>}<br>]</li>
+<li>导入gfw规则集<span id="more"></span>
+路由设置页面设置：高级功能-添加规则集-导入规则-从剪贴板中导入规则，别名自己设置一个。<br>首先复制以下一种配置内容：<br>带广告屏蔽的：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;outboundTag&quot;: &quot;block&quot;,</span><br><span class="line">    &quot;domain&quot;: [</span><br><span class="line">      &quot;geosite:category-ads-all&quot;,</span><br><span class="line">      &quot;geosite:win-spy&quot;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">     &quot;outboundTag&quot;: &quot;proxy&quot;,</span><br><span class="line">     &quot;ip&quot;: [</span><br><span class="line">       &quot;geoip:telegram&quot;</span><br><span class="line">     ],</span><br><span class="line">     &quot;domain&quot;: [</span><br><span class="line">       &quot;geosite:gfw&quot;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;port&quot;: &quot;0-65535&quot;,</span><br><span class="line">    &quot;outboundTag&quot;: &quot;direct&quot;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+不带广告屏蔽<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">     &quot;outboundTag&quot;: &quot;proxy&quot;,</span><br><span class="line">     &quot;ip&quot;: [</span><br><span class="line">       &quot;geoip:telegram&quot;</span><br><span class="line">     ],</span><br><span class="line">     &quot;domain&quot;: [</span><br><span class="line">       &quot;geosite:gfw&quot;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;port&quot;: &quot;0-65535&quot;,</span><br><span class="line">    &quot;outboundTag&quot;: &quot;direct&quot;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+全局规则集<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;outboundTag&quot;: &quot;proxy&quot;,</span><br><span class="line">    &quot;port&quot;: &quot;0-65535&quot;,</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></li>
 </ol>
-<p>不带广告屏蔽</p>
-<p>[<br>  {<br>     “outboundTag”: “proxy”,<br>     “ip”: [<br>       “geoip:telegram”<br>     ],<br>     “domain”: [<br>       “geosite:gfw”<br>    ]<br>  },<br>  {<br>    “port”: “0-65535”,<br>    “outboundTag”: “direct”<br>  }<br>]<br>接着在路由设置页面设置：高级功能-添加规则集-导入规则-从剪贴板中导入规则，别名自己设置一个。<br>设置geoip.dat和geosite.dat文件不跟随core更新</p>
-<p>在参数设置-V2rayN设置中勾选</p>
-<ol start="4">
-<li>全局规则集</li>
-</ol>
-<p>添加方式与条目3相同</p>
-<p>[<br>  {<br>    “outboundTag”: “proxy”,<br>    “port”: “0-65535”,<br>  }<br>]</p>
-<ol start="5">
-<li>切换规则集</li>
-</ol>
-<p>注：谢谢网友“ANGIANAPR”的分享：点击跳转</p>
+<p>在参数设置-V2rayN设置中设置geoip.dat和geosite.dat文件不跟随core更新</p>
+<p>注：谢谢网友“ANGIANAPR”的分享</p>
 
     </div>
 
