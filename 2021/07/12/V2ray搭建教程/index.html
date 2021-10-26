@@ -28,7 +28,7 @@
 <meta property="og:description" content="获取root权限： 1sudo -i  ##Debian更新系统## 1apt update -y ##CentOS更新系统## 12yum install epel-release -yyum update -y ##CentOS更新系统## 12yum update -yyum install -y curl">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-07-12T08:12:07.000Z">
-<meta property="article:modified_time" content="2021-10-17T08:47:38.007Z">
+<meta property="article:modified_time" content="2021-10-19T13:31:28.281Z">
 <meta property="article:author" content="yiqingdi">
 <meta property="article:tag" content="V2ray">
 <meta name="twitter:card" content="summary">
@@ -136,7 +136,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -149,7 +149,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -220,7 +220,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-10-17 16:47:38" itemprop="dateModified" datetime="2021-10-17T16:47:38+08:00">2021-10-17</time>
+        <time title="修改时间：2021-10-19 21:31:28" itemprop="dateModified" datetime="2021-10-19T21:31:28+08:00">2021-10-19</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -255,18 +255,22 @@
 
 <p>V2ray一键安装指令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -s -L https://git.io/v2ray.sh)</span><br></pre></td></tr></table></figure>
-<p>如果提示 curl: command not found ，那是因为你的 VPS 没装 Curl</p>
-<p>ubuntu/debian 系统安装 Curl 方法: </p>
+<p>如果提示 curl: command not found ，那是因为你的 VPS 没装 Curl<br>ubuntu/debian 系统安装 Curl 方法: </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get update -y &amp;&amp; apt-get install curl -y</span><br></pre></td></tr></table></figure>
 <p>centos 系统安装 Curl 方法: </p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum update -y &amp;&amp; yum install curl -y</span><br></pre></td></tr></table></figure>
 <p>安装好 curl 之后就能安装脚本了</p>
-<p>备注:非常重要</p>
-<p>使用Oracle Cloud free 免费云搭建了v2ray /shadowsockR， 在子网 -&gt; 安全列表 -&gt; 入网规则 里也打开了对应的端口，但还是无法科学上网。</p>
-<p>原来oracle cloud与 aws等云不同，需要关闭防火墙或iptable。</p>
-<p>解决方法：</p>
-<p>centos操作如下：</p>
-<p>#停止firewall</p>
+<p>安装BBR加速<br>开启系统自带BBR</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;net.core.default_qdisc=fq&quot; &gt;&gt; /etc/sysctl.conf</span><br><span class="line">echo &quot;net.ipv4.tcp_congestion_control=bbr&quot; &gt;&gt; /etc/sysctl.conf</span><br><span class="line">sysctl -p</span><br><span class="line">lsmod | grep bbr</span><br></pre></td></tr></table></figure>
+
+<p>千影版【推荐】</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -N --no-check-certificate &quot;https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh&quot; &amp;&amp; chmod +x tcp.sh &amp;&amp; ./tcp.sh</span><br></pre></td></tr></table></figure>
+<p>lkl-linux+haproxy hack 版本 bbrplus，在 OpenVZ 工作良好,需要开启 TUN/TAP 和至少 256M 空闲内存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget --no-cache -O lkl-haproxy.sh https://github.com/mzz2017/lkl-haproxy/raw/master/lkl-haproxy.sh &amp;&amp; bash lkl-haproxy.sh</span><br></pre></td></tr></table></figure>
+
+<p>备注:非常注意</p>
+<p>使用Oracle Cloud free 免费云搭建了v2ray /shadowsockR， 在子网 -&gt; 安全列表 -&gt; 入网规则 里也打开了对应的端口，但还是无法科学上网。<br>原来oracle cloud与 aws等云不同，需要关闭防火墙或iptable，解决方法：</p>
+<p>centos操作如下：<br>#停止firewall</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld.service</span><br></pre></td></tr></table></figure>
 <p>#禁止firewall开机启动</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl disable firewalld.service</span><br></pre></td></tr></table></figure>
